@@ -1,0 +1,28 @@
+.googlesync-in {
+  /* display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100px; */
+  text-align: -webkit-center;
+}
+
+.googlesync-in button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 200px;
+  height: 56px;
+  padding: 0 16px;
+
+  cursor: pointer;
+}
+
+.googlesync-in button img {
+  width: 32px;
+}
+
+.googlesync-in button span {
+  font-size: 16px;
+}

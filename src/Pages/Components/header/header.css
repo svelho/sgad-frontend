@@ -1,0 +1,21 @@
+.app-header {
+  align-items: center;
+  background: #dcdcdc;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 45vh;
+
+  background-image: url("../../../assets/background-logo.png");
+  background-color: #cccccc;
+  /* height: 500px; You must set a specified height */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+}
+
+/* .app-header__logo {
+    background: #999;
+    height: 25px;
+    width: 100px;
+} */

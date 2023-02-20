@@ -5,23 +5,3 @@
   width: 100vw;
   height: 100vh;
 }
-
-.sign-in button {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  width: 250px;
-  height: 56px;
-  padding: 0 16px;
-
-  cursor: pointer;
-}
-
-.sign-in button img {
-  width: 32px;
-}
-
-.sign-in button span {
-  font-size: 16px;
-}
