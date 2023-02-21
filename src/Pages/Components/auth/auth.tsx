@@ -1,32 +1,90 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import GoogleSync from "../autosync/googlesync";
 import "./auth.css";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { useState } from "react";
+import { auth } from "../../../services/firebase";
+import Credentials from "../../../models/credentials";
+import { useNavigate } from "react-router-dom";
 
 function Auth() {
-  // const auth = getAuth();
-  // function createUserWithEmailAndPassword(auth, email, password)
-  //   .then((userCredential) => {
-  //     // Signed in
-  //     const user = userCredential.user;
-  //     // ...
-  //   })
-  //   .catch((error) => {
-  //     const errorCode = error.code;
-  //     const errorMessage = error.message;
-  //     // ..
-  //   });
   let [authMode, setAuthMode] = useState("signin");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const changeAuthMode = () => {
     setAuthMode(authMode === "signin" ? "signup" : "signin");
   };
 
-  if (authMode == "signin") {
+  const cleanFields = () => {
+    setEmail("");
+    setPassword("");
+  };
+
+  const navigate = useNavigate();
+
+  const createNewUser = () => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user as any;
+        //console.log("usuário cadastrado", userCredential);
+        //console.log("usuário", userCredential.user);
+        const cred = new Credentials();
+        cred.email = user.email ?? "";
+        cred.token = user.accessToken ?? "";
+        cred.refreshToken = user.stsTokenManager.refreshToken;
+        cred.expirationTime = user.stsTokenManager.expirationTime;
+        cred.uid = user.uid;
+
+        localStorage.setItem("credentials", JSON.stringify(cred));
+        cleanFields();
+        navigate("/home");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+        // ..
+      });
+  };
+
+  const loginUser = () => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user as any;
+        const cred = new Credentials();
+        cred.email = user.email ?? "";
+        cred.token = user.accessToken ?? "";
+        cred.refreshToken = user.stsTokenManager.refreshToken;
+        cred.expirationTime = user.stsTokenManager.expirationTime;
+        cred.uid = user.uid;
+
+        localStorage.setItem("credentials", JSON.stringify(cred));
+        cleanFields();
+        navigate("/home");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
+  };
+
+  if (authMode === "signin") {
     return (
       <div className="Auth-form-container">
-        <form className="Auth-form">
+        <form
+          className="Auth-form"
+          onSubmit={(e) => {
+            loginUser();
+            e.preventDefault();
+          }}
+        >
           <div className="Auth-form-content">
             <h3 className="Auth-form-title">Sign In</h3>
             <div className="text-center">
@@ -38,17 +96,24 @@ function Auth() {
             <div className="form-group mt-3">
               <label>Email</label>
               <input
+                id="email"
                 type="email"
                 className="form-control mt-1"
-                placeholder="Enter email"
+                placeholder="Email Address"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
               />
             </div>
             <div className="form-group mt-3">
               <label>Senha</label>
               <input
+                id="password"
                 type="password"
                 className="form-control mt-1"
-                placeholder="Enter password"
+                placeholder="Password"
+                minLength={6}
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
               />
             </div>
             <div className="d-grid gap-2 mt-3">
@@ -67,7 +132,13 @@ function Auth() {
   } else {
     return (
       <div className="Auth-form-container">
-        <form className="Auth-form">
+        <form
+          className="Auth-form"
+          onSubmit={(e) => {
+            createNewUser();
+            e.preventDefault();
+          }}
+        >
           <div className="Auth-form-content">
             <h3 className="Auth-form-title">Criar Conta</h3>
             <div className="text-center">
@@ -79,7 +150,7 @@ function Auth() {
             <div className="form-group mt-3">
               <label>Nome Completo</label>
               <input
-                type="email"
+                type="text"
                 className="form-control mt-1"
                 placeholder="e.g Jane Doe"
               />
@@ -87,17 +158,24 @@ function Auth() {
             <div className="form-group mt-3">
               <label>Email</label>
               <input
+                id="email"
                 type="email"
                 className="form-control mt-1"
                 placeholder="Email Address"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
               />
             </div>
             <div className="form-group mt-3">
               <label>Senha</label>
               <input
+                id="password"
                 type="password"
                 className="form-control mt-1"
                 placeholder="Password"
+                minLength={6}
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
               />
             </div>
             <div className="d-grid gap-2 mt-3">
