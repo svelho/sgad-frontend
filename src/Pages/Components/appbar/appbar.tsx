@@ -6,10 +6,12 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import green from "@material-ui/core/colors/green";
-import { Avatar, Badge } from "@material-ui/core";
+import { Avatar, Badge, Icon, List, ListItem } from "@material-ui/core";
 import Credentials from "../../../models/credentials";
 import { deepOrange } from "@material-ui/core/colors";
 import { useNavigate } from "react-router-dom";
+import LogoSgad from "../../../assets/logo-sgad.png";
+import "./appbar.css";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -66,7 +68,7 @@ export default function ButtonAppBar() {
   return (
     <React.Fragment>
       <meta name="referrer" content="no-referrer-when-downgrade" />
-      <AppBar color={"primary"}>
+      <AppBar className={classes.customColor}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -76,6 +78,7 @@ export default function ButtonAppBar() {
           >
             <MenuIcon />
           </IconButton>
+          <img src={LogoSgad} className="logo" alt="logo"></img>
 
           <Typography variant="h6" className={classes.title}>
             SGAD
