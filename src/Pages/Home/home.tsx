@@ -1,9 +1,15 @@
-import Credentials from "../../models/credentials";
+import ButtonAppBar from "../Components/appbar/appbar";
+import Header from "../Components/header/header";
 
 function Home2() {
-  const cred = localStorage.getItem("credentials");
-  const credential = JSON.parse(cred ?? "") as Credentials;
-  return <div>{credential.email}</div>;
+  return (
+    <div>
+      <header>
+        <ButtonAppBar />
+      </header>
+      <Header />
+    </div>
+  );
 }
 
 export default Home2;

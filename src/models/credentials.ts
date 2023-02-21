@@ -5,6 +5,7 @@ class Credentials {
   refreshToken: string | undefined;
   expirationTime: number | undefined;
   uid: string | undefined;
+  photoUrl: string | undefined;
 }
 
 export default Credentials;

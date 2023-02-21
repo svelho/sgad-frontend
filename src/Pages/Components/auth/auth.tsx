@@ -12,8 +12,8 @@ import { useNavigate } from "react-router-dom";
 
 function Auth() {
   let [authMode, setAuthMode] = useState("signin");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  let [email, setEmail] = useState("");
+  let [password, setPassword] = useState("");
 
   const changeAuthMode = () => {
     setAuthMode(authMode === "signin" ? "signup" : "signin");
@@ -34,10 +34,12 @@ function Auth() {
         //console.log("usuário cadastrado", userCredential);
         //console.log("usuário", userCredential.user);
         const cred = new Credentials();
+        cred.name = "Saulo Velho";
         cred.email = user.email ?? "";
         cred.token = user.accessToken ?? "";
         cred.refreshToken = user.stsTokenManager.refreshToken;
         cred.expirationTime = user.stsTokenManager.expirationTime;
+        cred.photoUrl = user.photoURL ?? "";
         cred.uid = user.uid;
 
         localStorage.setItem("credentials", JSON.stringify(cred));
@@ -58,10 +60,12 @@ function Auth() {
         // Signed in
         const user = userCredential.user as any;
         const cred = new Credentials();
+        cred.name = "Saulo Velho";
         cred.email = user.email ?? "";
         cred.token = user.accessToken ?? "";
         cred.refreshToken = user.stsTokenManager.refreshToken;
         cred.expirationTime = user.stsTokenManager.expirationTime;
+        cred.photoUrl = user.photoURL ?? "";
         cred.uid = user.uid;
 
         localStorage.setItem("credentials", JSON.stringify(cred));
