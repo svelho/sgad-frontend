@@ -6,8 +6,8 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { useState } from "react";
-import { auth } from "../../../services/firebase";
-import Credentials from "../../../models/credentials";
+import { auth } from "../../services/firebase";
+import Credentials from "../../models/credentials";
 import { useNavigate } from "react-router-dom";
 
 function Auth() {

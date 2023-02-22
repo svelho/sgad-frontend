@@ -1,11 +1,11 @@
 import "./styles.css";
-import Header from "../Components/header/header";
-import Auth from "../Components/auth/auth";
+import Cover from "../../Components/cover/cover";
+import Auth from "../../Components/auth/auth";
 
 function SignIn() {
   return (
     <div>
-      <Header />
+      <Cover />
       <Auth />
     </div>
   );

@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import green from "@material-ui/core/colors/green";
 import { Avatar, Badge, Box, Button, Menu, MenuItem } from "@material-ui/core";
-import Credentials from "../../../models/credentials";
+import Credentials from "../../models/credentials";
 import { deepOrange } from "@material-ui/core/colors";
 import { useNavigate } from "react-router-dom";
-import LogoSgad from "../../../assets/logo-sgad.png";
+import LogoSgad from "../../assets/logo-sgad.png";
 import "./appbar.css";
-
-let width = window.innerWidth;
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -65,7 +62,7 @@ export default function ButtonAppBar() {
   }
 
   const changeLogout = () => {
-    if (isHideLogout == false) setIsHideLogout(true);
+    if (isHideLogout === false) setIsHideLogout(true);
     else setIsHideLogout(false);
   };
 
@@ -82,6 +79,10 @@ export default function ButtonAppBar() {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const navigation = (address: string) => {
+    handleClose();
+    navigate(address);
   };
 
   return (
@@ -116,12 +117,22 @@ export default function ButtonAppBar() {
                     horizontal: "left",
                   }}
                 >
-                  <MenuItem onClick={handleClose}>Home</MenuItem>
-                  <MenuItem onClick={handleClose}>Stakeholders</MenuItem>
-                  <MenuItem onClick={handleClose}>Política Ambiental</MenuItem>
-                  <MenuItem onClick={handleClose}>Atividades de Risco</MenuItem>
-                  <MenuItem onClick={handleClose}>Metas Ambientais</MenuItem>
-                  <MenuItem onClick={handleClose}>Risco de Atividades</MenuItem>
+                  <MenuItem onClick={() => navigation("/home")}>Home</MenuItem>
+                  <MenuItem onClick={() => navigation("/stakeholders")}>
+                    Stakeholders
+                  </MenuItem>
+                  <MenuItem onClick={() => navigation("/politica")}>
+                    Política Ambiental
+                  </MenuItem>
+                  <MenuItem onClick={() => navigation("/atividades")}>
+                    Atividades de Risco
+                  </MenuItem>
+                  <MenuItem onClick={() => navigation("/metas")}>
+                    Metas Ambientais
+                  </MenuItem>
+                  <MenuItem onClick={() => navigation("/score")}>
+                    Score de Risco
+                  </MenuItem>
                 </Menu>
               </div>
             )}
@@ -132,16 +143,42 @@ export default function ButtonAppBar() {
           </Typography> */}
             {width > breakpoint && (
               <div>
-                <IconButton className="iconButton">Home</IconButton>
-                <IconButton className="iconButton">Stakeholders</IconButton>
-                <IconButton className="iconButton">
+                <IconButton
+                  className="iconButton"
+                  onClick={() => navigation("/home")}
+                >
+                  Home
+                </IconButton>
+                <IconButton
+                  className="iconButton"
+                  onClick={() => navigation("/stakeholders")}
+                >
+                  Stakeholders
+                </IconButton>
+                <IconButton
+                  className="iconButton"
+                  onClick={() => navigation("/politica")}
+                >
                   Política Ambiental
                 </IconButton>
-                <IconButton className="iconButton">
+                <IconButton
+                  className="iconButton"
+                  onClick={() => navigation("/atividades")}
+                >
                   Atividades de Risco
                 </IconButton>
-                <IconButton className="iconButton">Metas Ambientais</IconButton>
-                <IconButton className="iconButton">Score de Risco</IconButton>
+                <IconButton
+                  className="iconButton"
+                  onClick={() => navigation("/metas")}
+                >
+                  Metas Ambientais
+                </IconButton>
+                <IconButton
+                  className="iconButton"
+                  onClick={() => navigation("/score")}
+                >
+                  Score de Risco
+                </IconButton>
               </div>
             )}
           </Box>

@@ -1,0 +1,15 @@
+.main {
+  position: absolute;
+  top: 64px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  background-color: whitesmoke;
+
+  height: 88%;
+
+  background-image: url("../../assets/imageHome.png");
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+}

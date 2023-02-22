@@ -1,9 +1,9 @@
 import "./googlesync.css";
-import LogoGoogle from "../../../assets/google-logo.png";
+import LogoGoogle from "../../assets/google-logo.png";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
-import { auth } from "../../../services/firebase";
-import Credentials from "../../../models/credentials";
+import { auth } from "../../services/firebase";
+import Credentials from "../../models/credentials";
 import { useNavigate } from "react-router-dom";
 
 function GoogleSync() {
