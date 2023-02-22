@@ -2,5 +2,14 @@
   width: 40px;
   height: auto;
   object-fit: contain;
-  margin-right: 30px;
+  margin: 0px 15px;
+}
+
+.MuiToolbar-gutters {
+  padding-left: 0% !important;
+}
+
+.iconButton {
+  color: beige !important;
+  font-size: large !important;
 }

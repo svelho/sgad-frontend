@@ -1,13 +1,15 @@
+import { Container } from "@material-ui/core";
 import ButtonAppBar from "../Components/appbar/appbar";
 import Header from "../Components/header/header";
+import "./home.css";
 
 function Home2() {
   return (
-    <div>
+    <div className="main">
       <header>
         <ButtonAppBar />
       </header>
-      <Header />
+      <div className="back" />
     </div>
   );
 }
