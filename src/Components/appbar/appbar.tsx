@@ -49,8 +49,8 @@ export default function ButtonAppBar() {
   //   const isCustomHeight = example === "customHeight";
 
   let avatar;
-  console.log(credential.photoUrl);
-  console.log(credential.email);
+  // console.log(credential.photoUrl);
+  // console.log(credential.email);
   if (credential.photoUrl !== "") {
     avatar = <Avatar alt="Avatar" src={credential.photoUrl} />;
   } else {
@@ -87,7 +87,7 @@ export default function ButtonAppBar() {
 
   return (
     <React.Fragment>
-      <meta name="referrer" content="no-referrer-when-downgrade" />
+      <meta name="referrer" content="no-referrer" />
       <AppBar className={classes.customColor}>
         <Toolbar>
           <Box display="flex" flexGrow={1}>

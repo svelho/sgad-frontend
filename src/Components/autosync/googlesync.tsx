@@ -19,17 +19,16 @@ function GoogleSync() {
     signInWithPopup(auth, provider)
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
+        //const credential = GoogleAuthProvider.credentialFromResult(result);
         //const token = credential?.accessToken;
+        const user = result.user as any;
 
-        // The signed-in user info.
-        const user = result.user;
-
+        //        console.log(user);
         const cred = new Credentials();
         cred.name = user.displayName ?? "";
         cred.email = user.email ?? "";
-        cred.token = credential?.accessToken;
-        cred.refreshToken = credential?.idToken;
+        cred.token = user.accessToken;
+        cred.refreshToken = user.stsTokenManager.refreshToken;
         cred.expirationTime = 60000;
         cred.photoUrl = user.photoURL ?? "";
         cred.uid = user.uid;

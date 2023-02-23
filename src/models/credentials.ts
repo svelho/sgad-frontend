@@ -6,6 +6,13 @@ class Credentials {
   expirationTime: number | undefined;
   uid: string | undefined;
   photoUrl: string | undefined;
+  area: string | undefined;
+  position: string | undefined;
+  phone: string | undefined;
 }
 
 export default Credentials;
+
+export interface ListCredentials {
+  users: Credentials[];
+}

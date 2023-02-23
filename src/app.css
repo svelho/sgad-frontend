@@ -1,0 +1,9 @@
+.content {
+  position: absolute;
+  top: 64px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  background-color: transparent;
+  text-align: -webkit-center;
+}
