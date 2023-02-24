@@ -49,7 +49,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 //   createData("fulano abc", 356, 16.0, 49, 3.9),
 // ];
 
-export default function DenseTable({ users }: ListCredentials) {
+export default function StakeholderTable({ users }: ListCredentials) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">

@@ -5,6 +5,8 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { green } from "@material-ui/core/colors";
 import CreatePolicy from "../../Pages/Policies/createPolicy";
+import Policies from "../../Pages/Policies/policies";
+import PolicyList from "../../Pages/Policies/policyList";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -61,7 +63,7 @@ export default function BasicTabs() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        Item One
+        <PolicyList />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <CreatePolicy />

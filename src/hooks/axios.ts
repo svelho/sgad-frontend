@@ -9,7 +9,10 @@ const UseAxiosPost = (url: string, payload: any, headers: any) => {
   useEffect(() => {
     axios
       .post(url, payload, { headers })
-      .then((response) => setData(response.data))
+      .then((response) => {
+        console.log(response.data);
+        setData(response.data);
+      })
       .catch((error) => setError(error.message))
       .finally(() => setLoaded(true));
   }, []);
