@@ -1,23 +1,38 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const UseAxiosPost = (url: string, payload: any, headers: any) => {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState("");
-  const [loaded, setLoaded] = useState(false);
+const UseAxiosPost = async (
+  url: string,
+  payload: any,
+  headers: any
+): Promise<boolean> => {
+  const returned = await axios
+    .post(url, payload, { headers })
+    .then((response) => {
+      console.log(response.data);
+      return true;
+    })
+    .catch((error) => {
+      console.log(error);
+      return false;
+    });
 
-  useEffect(() => {
-    axios
-      .post(url, payload, { headers })
-      .then((response) => {
-        console.log(response.data);
-        setData(response.data);
-      })
-      .catch((error) => setError(error.message))
-      .finally(() => setLoaded(true));
-  }, []);
+  return returned;
+};
 
-  return { data, error, loaded };
+const UseAxiosDelete = async (url: string, headers: any): Promise<boolean> => {
+  const returned = await axios
+    .delete(url, { headers })
+    .then((response) => {
+      console.log(response.data);
+      return true;
+    })
+    .catch((error) => {
+      console.log(error);
+      return false;
+    });
+
+  return returned;
 };
 
 const UseAxiosGet = (url: string, headers: any) => {
@@ -37,4 +52,4 @@ const UseAxiosGet = (url: string, headers: any) => {
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export { UseAxiosGet, UseAxiosPost };
+export { UseAxiosGet, UseAxiosPost, UseAxiosDelete };

@@ -1,0 +1,7 @@
+.iconButton {
+  color: gray !important;
+}
+
+.iconButton:focus {
+  color: #4caf50 !important;
+}
