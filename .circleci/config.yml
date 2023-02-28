@@ -21,7 +21,7 @@ jobs:
             - ./node_modules
       - run:
           name: yarn build
-          command: yarn build
+          command: yarn buildprod
       - persist_to_workspace:
           root: ~/project
           paths: .
