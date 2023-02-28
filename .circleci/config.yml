@@ -27,7 +27,7 @@ jobs:
           paths: .
       - run:
           name: Deploy app to Firebase
-          command: ./node_modules/.bin/firebase deploy --token=1//0h7_4GZliPSHWCgYIARAAGBESNwF-L9IrRE6pVvavUi07ix5Im1sxqkdQGMLTqcHRBMYSOUF9KJ2wrOdiaaBE2nYyLc2FjJAmgsw
+          command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN
 workflows:
   build-and-deploy:
     jobs:
