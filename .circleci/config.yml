@@ -1,0 +1,34 @@
+version: 2.1
+orbs:
+  node: circleci/node@5
+jobs:
+  build:
+    working_directory: ~/project
+    docker:
+      - image: cimg/node:18.3.0
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: Yarn install
+          command: "yarn install"
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: yarn build
+          command: yarn build
+      - persist_to_workspace:
+          root: ~/project
+          paths: .
+      - run:
+          name: Deploy app to Firebase
+          command: ./node_modules/.bin/firebase deploy --token=1//0h7_4GZliPSHWCgYIARAAGBESNwF-L9IrRE6pVvavUi07ix5Im1sxqkdQGMLTqcHRBMYSOUF9KJ2wrOdiaaBE2nYyLc2FjJAmgsw
+workflows:
+  build-and-deploy:
+    jobs:
+      - build
