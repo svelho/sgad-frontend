@@ -10,6 +10,8 @@ jobs:
       - checkout
       - node/install-packages:
           pkg-manager: yarn
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
           name: Yarn install
           command: "yarn install"
@@ -20,6 +22,9 @@ jobs:
       - run:
           name: yarn build
           command: yarn build
+      - persist_to_workspace:
+          root: ~/project
+          paths: .
       - run:
           name: Deploy app to Firebase
           command: ./node_modules/.bin/firebase deploy --token=1//0h7_4GZliPSHWCgYIARAAGBESNwF-L9IrRE6pVvavUi07ix5Im1sxqkdQGMLTqcHRBMYSOUF9KJ2wrOdiaaBE2nYyLc2FjJAmgsw
