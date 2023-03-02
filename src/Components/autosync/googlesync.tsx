@@ -24,10 +24,8 @@ function GoogleSync() {
       //const token = credential?.accessToken;
       const user = result.user as any;
 
-      console.log(user);
       const cred = new Credentials();
       cred.name = user.displayName ?? "";
-      console.log("diplayNamee", user.displayName);
       cred.email = user.email ?? "";
       cred.token = user.accessToken;
       cred.refreshToken = user.stsTokenManager.refreshToken;
@@ -43,8 +41,6 @@ function GoogleSync() {
         `${process.env.REACT_APP_BACKEND}/user/${user.uid}`,
         headers
       )) as Credentials;
-
-      console.log("userReturned", userReturned);
       if (userReturned && userReturned.name) {
         navigate("/home");
       } else {

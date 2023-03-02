@@ -44,13 +44,9 @@ export default function ButtonAppBar() {
   const credential = JSON.parse(cred ?? "") as Credentials;
 
   const classes = useStyles();
-  //const [example, setExample] = useState("primary");
-  //   const isCustomColor = example === "customColor";
-  //   const isCustomHeight = example === "customHeight";
 
   let avatar;
-  // console.log(credential.photoUrl);
-  // console.log(credential.email);
+
   if (credential.photoUrl !== "") {
     avatar = <Avatar alt="Avatar" src={credential.photoUrl} />;
   } else {
@@ -67,7 +63,6 @@ export default function ButtonAppBar() {
   };
 
   function logout() {
-    console.log("Sair");
     localStorage.clear();
     navigate("/");
   }

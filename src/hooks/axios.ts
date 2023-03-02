@@ -7,11 +7,9 @@ const UseAxiosPost = async (
   payload: any,
   headers: any
 ): Promise<boolean> => {
-  //console.log("payload", payload);
   const returned = await axios
     .post(url, payload, { headers })
     .then((response) => {
-      //console.log(response);
       return true;
     })
     .catch((error) => {
@@ -26,7 +24,6 @@ const UseAxiosDelete = async (url: string, headers: any): Promise<boolean> => {
   const returned = await axios
     .delete(url, { headers })
     .then((response) => {
-      //console.log(response.data);
       return true;
     })
     .catch((error) => {

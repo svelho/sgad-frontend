@@ -23,7 +23,6 @@ export default function BasicTable({ policies }: ListPolicies) {
   let [policiesFiltered, setPoliciesFiltered] = useState(policies);
 
   const deleteRow = (id: string, index: number) => {
-    console.log("The id is ", id);
     setSuccess(false);
     const cred = localStorage.getItem("credentials");
     const credential = JSON.parse(cred ?? "") as Credentials;

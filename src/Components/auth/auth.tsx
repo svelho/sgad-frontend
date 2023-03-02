@@ -45,8 +45,6 @@ function Auth() {
       .then(async (userCredential) => {
         // Signed in
         const user = userCredential.user as any;
-        //console.log("usuário cadastrado", userCredential);
-        //console.log("usuário", userCredential.user);
         const cred = new Credentials();
         cred.email = user.email ?? "";
         cred.token = user.accessToken ?? "";
