@@ -15,6 +15,7 @@ function Stakeholders() {
     Authorization: `Bearer ${credential.token}`,
     "Access-Control-Allow-Origin": "*",
     "Content-Type": "application/json",
+    
   };
 
   const { data, error, loaded } = UseAxiosGet(

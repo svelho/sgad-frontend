@@ -9,6 +9,7 @@ class Credentials {
   area: string | undefined;
   position: string | undefined;
   phone: string | undefined;
+  onboarding: boolean | undefined;
 }
 
 export default Credentials;

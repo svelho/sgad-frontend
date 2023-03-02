@@ -1,15 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Credentials from "../models/credentials";
 
 const UseAxiosPost = async (
   url: string,
   payload: any,
   headers: any
 ): Promise<boolean> => {
+  //console.log("payload", payload);
   const returned = await axios
     .post(url, payload, { headers })
     .then((response) => {
-      console.log(response.data);
+      //console.log(response);
       return true;
     })
     .catch((error) => {
@@ -24,8 +26,25 @@ const UseAxiosDelete = async (url: string, headers: any): Promise<boolean> => {
   const returned = await axios
     .delete(url, { headers })
     .then((response) => {
-      console.log(response.data);
+      //console.log(response.data);
       return true;
+    })
+    .catch((error) => {
+      console.log(error);
+      return false;
+    });
+
+  return returned;
+};
+
+const UseAxiosGetWithParameter = async (
+  url: string,
+  headers: any
+): Promise<any> => {
+  const returned = await axios
+    .get(url, { headers })
+    .then((response) => {
+      return response.data;
     })
     .catch((error) => {
       console.log(error);
@@ -52,4 +71,4 @@ const UseAxiosGet = (url: string, headers: any) => {
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export { UseAxiosGet, UseAxiosPost, UseAxiosDelete };
+export { UseAxiosGet, UseAxiosPost, UseAxiosDelete, UseAxiosGetWithParameter };

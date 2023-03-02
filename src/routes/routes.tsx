@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Onboarding from "../Components/autosync/onboarding";
 import Home2 from "../Pages/Home/home";
 import Policies from "../Pages/Policies/policies";
 
@@ -13,6 +14,7 @@ export const AppRoutes = () => {
         <Route path="/home" element={<Home2 />} />
         <Route path="/stakeholders" element={<Stakeholders />} />
         <Route path="/politica" element={<Policies />} />
+        <Route path="/onboarding" element={<Onboarding />} />
       </Routes>
     </BrowserRouter>
   );

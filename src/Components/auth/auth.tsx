@@ -9,11 +9,25 @@ import { useState } from "react";
 import { auth } from "../../services/firebase";
 import Credentials from "../../models/credentials";
 import { useNavigate } from "react-router-dom";
+import { UseAxiosPost } from "../../hooks/axios";
+import GetHeader from "../../shared/localStorage";
+import {
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Stack,
+} from "@mui/material";
+import { Maximize } from "@mui/icons-material";
 
 function Auth() {
   let [authMode, setAuthMode] = useState("signin");
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
+  let [name, setName] = useState("");
+  let [phone, setPhone] = useState("");
+  let [position, setPosition] = useState("");
+  let [area, setArea] = useState("");
 
   const changeAuthMode = () => {
     setAuthMode(authMode === "signin" ? "signup" : "signin");
@@ -28,13 +42,12 @@ function Auth() {
 
   const createNewUser = () => {
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         // Signed in
         const user = userCredential.user as any;
         //console.log("usuário cadastrado", userCredential);
         //console.log("usuário", userCredential.user);
         const cred = new Credentials();
-        cred.name = "Saulo Velho";
         cred.email = user.email ?? "";
         cred.token = user.accessToken ?? "";
         cred.refreshToken = user.stsTokenManager.refreshToken;
@@ -42,9 +55,29 @@ function Auth() {
         cred.photoUrl = user.photoURL ?? "";
         cred.uid = user.uid;
 
-        localStorage.setItem("credentials", JSON.stringify(cred));
-        cleanFields();
-        navigate("/home");
+        const headers = GetHeader();
+
+        const payload = {
+          name: name,
+          email: user.email,
+          phone: phone,
+          position: position,
+          area: area,
+          photoUrl: user.photoURL ?? "",
+          uid: user.uid,
+        };
+
+        UseAxiosPost(
+          `${process.env.REACT_APP_BACKEND}/user/create`,
+          payload,
+          headers
+        ).then(async (data) => {
+          cred.onboarding = true;
+          await localStorage.setItem("credentials", JSON.stringify(cred));
+
+          cleanFields();
+          navigate("/home");
+        });
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -60,17 +93,12 @@ function Auth() {
         // Signed in
         const user = userCredential.user as any;
         const cred = new Credentials();
-        cred.name = "Saulo Velho";
         cred.email = user.email ?? "";
         cred.token = user.accessToken ?? "";
         cred.refreshToken = user.stsTokenManager.refreshToken;
         cred.expirationTime = user.stsTokenManager.expirationTime;
         cred.photoUrl = user.photoURL ?? "";
         cred.uid = user.uid;
-
-        localStorage.setItem("credentials", JSON.stringify(cred));
-        cleanFields();
-        navigate("/home");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -156,7 +184,9 @@ function Auth() {
               <input
                 type="text"
                 className="form-control mt-1"
-                placeholder="e.g Jane Doe"
+                placeholder="Nome Completo"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
               />
             </div>
             <div className="form-group mt-3">
@@ -182,6 +212,41 @@ function Auth() {
                 onChange={(event) => setPassword(event.target.value)}
               />
             </div>
+            <div className="form-group mt-3">
+              <label>Telefone</label>
+              <input
+                type="text"
+                className="form-control mt-1"
+                placeholder="Telefone pra contato"
+                value={phone}
+                onChange={(event) => setPhone(event.target.value)}
+              />
+            </div>
+            <div className="form-group mt-3">
+              <label>Cargo</label>
+              <input
+                type="text"
+                className="form-control mt-1"
+                placeholder="Cargo"
+                value={position}
+                onChange={(event) => setPosition(event.target.value)}
+              />
+            </div>
+            <label>Area</label>
+            <Select
+              className="form-group mt-3"
+              value={area}
+              label="Area"
+              onChange={(event) => setArea(event.target.value)}
+              sx={{ width: 300 }}
+              //onFocus={changeLabel}
+              //onBlur={changeLabelBlur}
+            >
+              <MenuItem value={"Gestao Ambiental"}>Gestão Ambiental</MenuItem>
+              <MenuItem value={"Financeiro"}>Financeiro</MenuItem>
+              <MenuItem value={"TI"}>TI</MenuItem>
+              <MenuItem value={"Marketing"}>Marketing</MenuItem>
+            </Select>
             <div className="d-grid gap-2 mt-3">
               <button type="submit" className="btn btn-primary">
                 Criar
