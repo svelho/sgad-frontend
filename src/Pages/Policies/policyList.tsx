@@ -18,7 +18,7 @@ function PolicyList() {
   };
 
   const { data, error, loaded } = UseAxiosGet(
-    `${process.env.REACT_APP_BACKEND}/policies`,
+    `${process.env.REACT_APP_BACKEND}/v1/policies`,
     headers
   );
 

@@ -66,7 +66,7 @@ function Auth() {
         };
 
         UseAxiosPost(
-          `${process.env.REACT_APP_BACKEND}/user/create`,
+          `${process.env.REACT_APP_BACKEND}/v1/user/create`,
           payload,
           headers
         ).then(async (data) => {

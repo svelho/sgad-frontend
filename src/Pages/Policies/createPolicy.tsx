@@ -59,7 +59,7 @@ export default function CreatePolicy() {
     };
 
     const returned = UseAxiosPost(
-      `${process.env.REACT_APP_BACKEND}/policy/create`,
+      `${process.env.REACT_APP_BACKEND}/v1/policy/create`,
       payload,
       headers
     ).then((data) => {

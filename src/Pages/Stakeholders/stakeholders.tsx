@@ -15,11 +15,10 @@ function Stakeholders() {
     Authorization: `Bearer ${credential.token}`,
     "Access-Control-Allow-Origin": "*",
     "Content-Type": "application/json",
-    
   };
 
   const { data, error, loaded } = UseAxiosGet(
-    `${process.env.REACT_APP_BACKEND}/users`,
+    `${process.env.REACT_APP_BACKEND}/v1/users`,
     headers
   );
 

@@ -38,7 +38,7 @@ function GoogleSync() {
 
       //verify user
       const userReturned = (await UseAxiosGetWithParameter(
-        `${process.env.REACT_APP_BACKEND}/user/${user.uid}`,
+        `${process.env.REACT_APP_BACKEND}/v1/user/${user.uid}`,
         headers
       )) as Credentials;
       if (userReturned && userReturned.name) {

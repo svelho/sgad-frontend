@@ -34,7 +34,7 @@ export default function BasicTable({ policies }: ListPolicies) {
     };
 
     UseAxiosDelete(
-      `${process.env.REACT_APP_BACKEND}/policy/delete/${id}`,
+      `${process.env.REACT_APP_BACKEND}/v1/policy/delete/${id}`,
       headers
     ).then((data) => {
       setSuccess(data);
