@@ -12,7 +12,7 @@ function Activities() {
         <h2 style={{ marginTop: 10 }}>Atividades de Risco</h2>
         <ActivityBasicTabs />
       </div>
-      <Footer note="Footer Note" />
+      <Footer />
     </div>
   );
 }

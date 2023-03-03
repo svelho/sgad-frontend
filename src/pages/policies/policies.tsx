@@ -15,7 +15,7 @@ function Policies() {
         <h2 style={{ marginTop: 10 }}>Política Ambiental</h2>
         <BasicTabs />
       </div>
-      <Footer note="Footer Note" />
+      <Footer />
     </div>
   );
 }

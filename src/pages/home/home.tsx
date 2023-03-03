@@ -8,7 +8,7 @@ function Home2() {
     <div className="">
       <Header />
       <Main />
-      <Footer note="Footer Note" />
+      <Footer />
     </div>
   );
 }

@@ -34,7 +34,7 @@ function Stakeholders() {
           <h2 style={{ marginTop: 10, textAlign: "left" }}>Stakeholders</h2>
           <StakeholderTable users={data as unknown as Credentials[]} />
         </div>
-        <Footer note="Footer Note" />
+        <Footer />
       </div>
     );
   else
@@ -45,7 +45,7 @@ function Stakeholders() {
         <div className="content">
           <Loading />
         </div>
-        <Footer note="Footer Note" />
+        <Footer />
       </div>
     );
 }
