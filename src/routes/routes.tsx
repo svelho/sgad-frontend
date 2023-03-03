@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Onboarding from "../Components/autosync/onboarding";
-import Activities from "../Pages/activities/activities";
+import Activities from "../pages/activities/activities";
 
-import Home2 from "../Pages/home/home";
-import Policies from "../Pages/policies/policies";
+import Home2 from "../pages/home/home";
+import Policies from "../pages/policies/policies";
 
-import SignIn from "../Pages/sign/signin";
-import Stakeholders from "../Pages/stakeholders/stakeholders";
+import SignIn from "../pages/sign/signin";
+import Stakeholders from "../pages/stakeholders/stakeholders";
 
 export const AppRoutes = () => {
   return (
