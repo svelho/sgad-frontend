@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Button, TextareaAutosize } from "@material-ui/core";
 import {
+  FormControl,
   InputLabel,
   MenuItem,
   Select,
@@ -23,6 +24,7 @@ export default function CreateActivity() {
   let [description, setDescription] = useState("");
   let [level, setLevel] = useState(0);
   let [success, setSuccess] = useState(true);
+  let [riskField, setRiskField] = useState(false);
 
   React.useEffect(() => {
     window.addEventListener("resize", () => setWidth(window.innerWidth));
@@ -30,6 +32,7 @@ export default function CreateActivity() {
 
   const handleChange = (event: SelectChangeEvent) => {
     setLevel(parseInt(event.target.value));
+    setRiskField(false);
   };
 
   const changeLabel = () => {
@@ -40,6 +43,11 @@ export default function CreateActivity() {
   };
 
   const createActivity = () => {
+    if (level === 0) {
+      setRiskField(true);
+      return false;
+    } else if (level > 0) setRiskField(false);
+
     setSuccess(false);
     const cred = localStorage.getItem("credentials");
     const credential = JSON.parse(cred ?? "") as Credentials;
@@ -81,8 +89,11 @@ export default function CreateActivity() {
         sx={{
           "& > :not(style)": { m: 1, width: "25ch" },
         }}
-        noValidate
         autoComplete="off"
+        onSubmit={(e) => {
+          createActivity();
+          e.preventDefault();
+        }}
       >
         <Stack spacing={2} direction="column">
           <TextField
@@ -121,8 +132,11 @@ export default function CreateActivity() {
             <MenuItem value={150}>Agressivo</MenuItem>
             <MenuItem value={200}>Muito Agressivo</MenuItem>
           </Select>
+          <div hidden={!riskField} className="validationError">
+            Por favor selecione um nível de risco.
+          </div>
 
-          <Button variant="outlined" onClick={createActivity}>
+          <Button variant="outlined" type="submit">
             Salvar
           </Button>
         </Stack>
