@@ -4,9 +4,9 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { green } from "@material-ui/core/colors";
-import CreatePolicy from "../../pages/policies/createPolicy";
-import Policies from "../../pages/policies/policies";
-import PolicyList from "../../pages/policies/policyList";
+import CreatePolicy from "../../Pages/policies/createPolicy";
+import Policies from "../../Pages/policies/policies";
+import PolicyList from "../../Pages/policies/policyList";
 
 interface TabPanelProps {
   children?: React.ReactNode;

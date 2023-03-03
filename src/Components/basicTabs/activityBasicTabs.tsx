@@ -3,8 +3,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import ActivityList from "../../pages/activities/activityList";
-import CreateActivity from "../../pages/activities/createActivity";
+import ActivityList from "../../Pages/activities/activityList";
+import CreateActivity from "../../Pages/activities/createActivity";
 
 interface TabPanelProps {
   children?: React.ReactNode;
