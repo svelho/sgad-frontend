@@ -25,6 +25,7 @@ export default function CreatePolicy() {
   let [level, setLevel] = useState(0);
   let obj: any;
   let [success, setSuccess] = useState(true);
+  let [riskField, setRiskField] = useState(false);
 
   React.useEffect(() => {
     window.addEventListener("resize", () => setWidth(window.innerWidth));
@@ -32,6 +33,7 @@ export default function CreatePolicy() {
 
   const handleChange = (event: SelectChangeEvent) => {
     setLevel(parseInt(event.target.value));
+    setRiskField(false);
   };
 
   const changeLabel = () => {
@@ -42,6 +44,11 @@ export default function CreatePolicy() {
   };
 
   const createPolicy = () => {
+    if (level === 0) {
+      setRiskField(true);
+      return false;
+    } else if (level > 0) setRiskField(false);
+
     setSuccess(false);
     const cred = localStorage.getItem("credentials");
     const credential = JSON.parse(cred ?? "") as Credentials;
@@ -83,10 +90,13 @@ export default function CreatePolicy() {
         sx={{
           "& > :not(style)": { m: 1, width: "25ch" },
         }}
-        noValidate
         autoComplete="off"
+        onSubmit={(e) => {
+          createPolicy();
+          e.preventDefault();
+        }}
       >
-        <Stack spacing={2} direction="column">
+        <Stack spacing={3} direction="column">
           <TextField
             required
             id="standard-basic"
@@ -123,8 +133,10 @@ export default function CreatePolicy() {
             <MenuItem value={75}>Muito Relevante</MenuItem>
             <MenuItem value={100}>Imprescindível</MenuItem>
           </Select>
-
-          <Button variant="outlined" onClick={createPolicy}>
+          <div hidden={!riskField} className="validationError">
+            Por favor selecione um nível de importância.
+          </div>
+          <Button variant="outlined" type="submit">
             Salvar
           </Button>
         </Stack>

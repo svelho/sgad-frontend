@@ -95,7 +95,7 @@ export default function CreateActivity() {
           e.preventDefault();
         }}
       >
-        <Stack spacing={2} direction="column">
+        <Stack spacing={3} direction="column">
           <TextField
             required
             id="standard-basic"

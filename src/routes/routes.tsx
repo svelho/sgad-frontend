@@ -3,6 +3,7 @@ import Onboarding from "../Components/autosync/onboarding";
 import Activities from "../pages/activities/activities";
 
 import Home2 from "../pages/home/home";
+import CreatePlanning from "../pages/planning/createPlanning";
 import Policies from "../pages/policies/policies";
 
 import SignIn from "../pages/sign/signin";
@@ -12,7 +13,8 @@ export const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<SignIn />} />
+        {/* <Route path="/" element={<SignIn />} /> */}
+        <Route path="/" element={<CreatePlanning />} />
         <Route path="/home" element={<Home2 />} />
         <Route path="/stakeholders" element={<Stakeholders />} />
         <Route path="/politica" element={<Policies />} />
