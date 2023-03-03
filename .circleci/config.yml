@@ -20,9 +20,6 @@ jobs:
           paths:
             - ./node_modules
       - run:
-          name: ignorecase
-          command: git config --global core.ignorecase true; 
-      - run:
           name: yarn build
           command: yarn buildprod
       - persist_to_workspace:
