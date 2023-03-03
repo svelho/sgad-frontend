@@ -11,7 +11,7 @@ import Credentials, { ListCredentials } from "../../models/credentials";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#2e6936",
+    backgroundColor: "#94ec91",
     color: theme.palette.common.white,
     fontSize: 16,
     fontWeight: 900,

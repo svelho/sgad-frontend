@@ -7,3 +7,8 @@
   background-color: transparent;
   text-align: -webkit-center;
 }
+
+.validationError {
+  color: red;
+  font-size: small;
+}

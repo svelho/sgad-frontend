@@ -31,6 +31,7 @@ function Stakeholders() {
       <div>
         <Header />
         <div className="content">
+          <h2 style={{ marginTop: 10, textAlign: "left" }}>Stakeholders</h2>
           <StakeholderTable users={data as unknown as Credentials[]} />
         </div>
         <Footer note="Footer Note" />
@@ -40,6 +41,7 @@ function Stakeholders() {
     return (
       <div>
         <Header />
+        <h2 style={{ marginTop: 10 }}>Stakeholders</h2>
         <div className="content">
           <Loading />
         </div>

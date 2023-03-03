@@ -37,10 +37,21 @@ function GoogleSync() {
       const headers = GetHeader();
 
       //verify user
-      const userReturned = (await UseAxiosGetWithParameter(
+      const userReturned = await UseAxiosGetWithParameter(
         `${process.env.REACT_APP_BACKEND}/v1/user/${user.uid}`,
         headers
-      )) as Credentials;
+      );
+
+      console.log(userReturned);
+
+      if ((userReturned as boolean) === false) {
+        navigate("/");
+        console.log("Erro ao consultar a base de clientes");
+        alert("Erro ao consultar a base de clientes");
+        return;
+      }
+
+      userReturned as Credentials;
       if (userReturned && userReturned.name) {
         navigate("/home");
       } else {

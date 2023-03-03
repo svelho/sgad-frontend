@@ -1,0 +1,18 @@
+textarea {
+  background-color: white;
+  color: black;
+  border-color: gray;
+  border-width: 2px;
+  margin-bottom: 20px;
+  margin-top: 30px !important;
+}
+
+textarea:focus {
+  outline: none !important;
+  border: 1px solid #4caf50;
+  box-shadow: 0 0 10px lightgreen;
+}
+
+button:focus {
+  color: #4caf50;
+}

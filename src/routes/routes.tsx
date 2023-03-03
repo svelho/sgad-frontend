@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Onboarding from "../Components/autosync/onboarding";
-import Home2 from "../Pages/Home/home";
-import Policies from "../Pages/Policies/policies";
+import Activities from "../pages/activities/activities";
+import Home2 from "../pages/home/home";
+import Policies from "../pages/policies/policies";
 
-import SignIn from "../Pages/Sign/signin";
-import Stakeholders from "../Pages/Stakeholders/stakeholders";
+import SignIn from "../pages/sign/signin";
+import Stakeholders from "../pages/stakeholders/stakeholders";
 
 export const AppRoutes = () => {
   return (
@@ -15,6 +16,7 @@ export const AppRoutes = () => {
         <Route path="/stakeholders" element={<Stakeholders />} />
         <Route path="/politica" element={<Policies />} />
         <Route path="/onboarding" element={<Onboarding />} />
+        <Route path="/atividades" element={<Activities />} />
       </Routes>
     </BrowserRouter>
   );

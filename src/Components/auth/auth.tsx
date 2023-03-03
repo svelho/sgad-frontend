@@ -19,6 +19,7 @@ import {
   Stack,
 } from "@mui/material";
 import { Maximize } from "@mui/icons-material";
+import Alert from "react-bootstrap/esm/Alert";
 
 function Auth() {
   let [authMode, setAuthMode] = useState("signin");
@@ -28,14 +29,24 @@ function Auth() {
   let [phone, setPhone] = useState("");
   let [position, setPosition] = useState("");
   let [area, setArea] = useState("");
+  let [userNotFound, setUserNotFound] = useState(false);
+  let [wrongPassword, setWrongPassword] = useState(false);
 
-  const changeAuthMode = () => {
-    setAuthMode(authMode === "signin" ? "signup" : "signin");
+  const changeAuthMode = (mode: string) => {
+    cleanFields();
+    //setAuthMode(authMode === "signin" ? "signup" : "signin");
+    setAuthMode(mode);
   };
 
   const cleanFields = () => {
     setEmail("");
     setPassword("");
+    setUserNotFound(false);
+    setWrongPassword(false);
+    setName("");
+    setPhone("");
+    setPosition("");
+    setArea("");
   };
 
   const navigate = useNavigate();
@@ -86,6 +97,8 @@ function Auth() {
   };
 
   const loginUser = () => {
+    setUserNotFound(false);
+    setWrongPassword(false);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
@@ -101,7 +114,13 @@ function Auth() {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        if (String(errorCode).includes("user-not-found")) {
+          setUserNotFound(true);
+        }
+        if (String(errorCode).includes("wrong-password")) {
+          setWrongPassword(true);
+        }
+        console.log(errorMessage);
       });
   };
 
@@ -116,16 +135,20 @@ function Auth() {
           }}
         >
           <div className="Auth-form-content">
-            <h3 className="Auth-form-title">Sign In</h3>
+            <h3 className="Auth-form-title">Login</h3>
             <div className="text-center">
               Novo usuário?{" "}
-              <span className="link-primary" onClick={changeAuthMode}>
+              <span
+                className="link-primary"
+                onClick={() => changeAuthMode("signup")}
+              >
                 Criar Conta
               </span>
             </div>
             <div className="form-group mt-3">
               <label>Email</label>
               <input
+                required
                 id="email"
                 type="email"
                 className="form-control mt-1"
@@ -133,10 +156,14 @@ function Auth() {
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
               />
+              <div hidden={!userNotFound} className="validationError">
+                Usuário não encontrado.
+              </div>
             </div>
             <div className="form-group mt-3">
               <label>Senha</label>
               <input
+                required
                 id="password"
                 type="password"
                 className="form-control mt-1"
@@ -145,21 +172,30 @@ function Auth() {
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
               />
+              <div hidden={!wrongPassword} className="validationError">
+                Senha incorreta.
+              </div>
             </div>
             <div className="d-grid gap-2 mt-3">
               <button type="submit" className="btn btn-primary">
                 Entrar
               </button>
             </div>
-            <p className="forgot-password text-right mt-2">
-              Esqueceu a <a href="#">senha?</a>
+            <p className="text-center mt-2">
+              Esqueceu sua{" "}
+              <span
+                className="link-primary"
+                onClick={() => changeAuthMode("forgot")}
+              >
+                senha?
+              </span>
             </p>
             <GoogleSync />
           </div>
         </form>
       </div>
     );
-  } else {
+  } else if (authMode === "signup") {
     return (
       <div className="Auth-form-container">
         <form
@@ -173,13 +209,17 @@ function Auth() {
             <h3 className="Auth-form-title">Criar Conta</h3>
             <div className="text-center">
               Já tem conta?{" "}
-              <span className="link-primary" onClick={changeAuthMode}>
+              <span
+                className="link-primary"
+                onClick={() => changeAuthMode("signin")}
+              >
                 Login
               </span>
             </div>
             <div className="form-group mt-3">
               <label>Nome Completo</label>
               <input
+                required
                 type="text"
                 className="form-control mt-1"
                 placeholder="Nome Completo"
@@ -190,6 +230,7 @@ function Auth() {
             <div className="form-group mt-3">
               <label>Email</label>
               <input
+                required
                 id="email"
                 type="email"
                 className="form-control mt-1"
@@ -201,6 +242,7 @@ function Auth() {
             <div className="form-group mt-3">
               <label>Senha</label>
               <input
+                required
                 id="password"
                 type="password"
                 className="form-control mt-1"
@@ -213,6 +255,7 @@ function Auth() {
             <div className="form-group mt-3">
               <label>Telefone</label>
               <input
+                required
                 type="text"
                 className="form-control mt-1"
                 placeholder="Telefone pra contato"
@@ -223,6 +266,7 @@ function Auth() {
             <div className="form-group mt-3">
               <label>Cargo</label>
               <input
+                required
                 type="text"
                 className="form-control mt-1"
                 placeholder="Cargo"
@@ -232,6 +276,7 @@ function Auth() {
             </div>
             <label>Area</label>
             <Select
+              required
               className="form-group mt-3"
               value={area}
               label="Area"
@@ -251,8 +296,60 @@ function Auth() {
               </button>
             </div>
             <p className="text-center mt-2">
-              Esquece sua <a href="#">senha?</a>
+              Esqueceu sua{" "}
+              <span
+                className="link-primary"
+                onClick={() => changeAuthMode("forgot")}
+              >
+                senha?
+              </span>
             </p>
+          </div>
+        </form>
+      </div>
+    );
+  } else {
+    return (
+      <div className="Auth-form-container">
+        <form
+          className="Auth-form"
+          onSubmit={(e) => {
+            createNewUser();
+            e.preventDefault();
+          }}
+        >
+          <div className="Auth-form-content">
+            <h3 className="Auth-form-title">Recuperar Senha</h3>
+
+            <div className="form-group mt-3">
+              <label>Informe seu e-mail de cadastro.</label>
+              <input
+                required
+                type="email"
+                className="form-control mt-1"
+                placeholder="E-mail"
+                onChange={(event) => setName(event.target.value)}
+              />
+            </div>
+            <div className="d-grid gap-2 mt-3">
+              <button
+                type="submit"
+                className="btn btn-primary"
+                onClick={() => {
+                  alert("E-mail enviado com sucesso");
+                  changeAuthMode("signin");
+                }}
+              >
+                Enviar
+              </button>
+            </div>
+            <br />
+            <span
+              className="link-primary"
+              onClick={() => changeAuthMode("signin")}
+            >
+              Voltar para Login.
+            </span>
           </div>
         </form>
       </div>

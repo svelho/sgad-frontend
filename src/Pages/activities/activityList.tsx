@@ -4,10 +4,10 @@ import "../../app.css";
 import Credentials from "../../models/credentials";
 import Loading from "../../Components/loading/loading";
 import { UseAxiosGet } from "../../hooks/axios";
-import PolicyTable from "../../Components/table/policyTable";
-import Policy from "../../models/policy";
+import ActivityTable from "../../Components/table/activityTable";
+import Activity from "../../models/activity";
 
-function PolicyList() {
+function ActivityList() {
   const cred = localStorage.getItem("credentials");
   const credential = JSON.parse(cred ?? "") as Credentials;
 
@@ -18,7 +18,7 @@ function PolicyList() {
   };
 
   const { data, error, loaded } = UseAxiosGet(
-    `${process.env.REACT_APP_BACKEND}/v1/policies`,
+    `${process.env.REACT_APP_BACKEND}/v1/activities`,
     headers
   );
 
@@ -29,8 +29,9 @@ function PolicyList() {
           Erro ao tentar realizar a consulta, tente mais tarde!
         </div>
       );
-    else return <PolicyTable policies={data as unknown as Policy[]} />;
+    else return <ActivityTable activities={data as unknown as Activity[]} />;
+    //if (loaded) return <ActivityTable />;
   } else return <Loading />;
 }
 
-export default PolicyList;
+export default ActivityList;

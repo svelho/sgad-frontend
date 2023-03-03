@@ -12,8 +12,8 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import React, { useState } from "react";
-import { ListPolicies } from "../../models/policy";
-import "./policyTable.css";
+import { ListActivities } from "../../models/activity";
+import "./activityTable.css";
 import { UseAxiosDelete, UseAxiosPost } from "../../hooks/axios";
 import Credentials from "../../models/credentials";
 import Loading from "../loading/loading";
@@ -41,20 +41,20 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function BasicTable({ policies }: ListPolicies) {
+export default function BasicTable({ activities }: ListActivities) {
   //const [rows, setRows] = React.useState(data);
   let [success, setSuccess] = useState(true);
-  let [policiesFiltered, setPoliciesFiltered] = useState(policies);
+  let [activitiesFiltered, setActivitiesFiltered] = useState(activities);
 
   const levelConvertToDescription = (level: number) => {
-    if (level === 25) {
-      return "Necessário";
-    } else if (level === 50) {
-      return "Relevante";
-    } else if (level === 75) {
-      return "Muito Relevante";
+    if (level === 50) {
+      return "Básico";
     } else if (level === 100) {
-      return "Imprescindível";
+      return "Moderado";
+    } else if (level === 150) {
+      return "Agressivo";
+    } else if (level === 200) {
+      return "Muito Agressivo";
     }
   };
 
@@ -70,13 +70,13 @@ export default function BasicTable({ policies }: ListPolicies) {
     };
 
     UseAxiosDelete(
-      `${process.env.REACT_APP_BACKEND}/v1/policy/delete/${id}`,
+      `${process.env.REACT_APP_BACKEND}/v1/activity/delete/${id}`,
       headers
     ).then((data) => {
       setSuccess(data);
       if (data) {
         alert("deletado com sucesso!");
-        setPoliciesFiltered(policiesFiltered.filter((v, i) => i !== index));
+        setActivitiesFiltered(activitiesFiltered.filter((v, i) => i !== index));
       } else {
         alert("Erro ao tentar deletar política");
       }
@@ -97,7 +97,7 @@ export default function BasicTable({ policies }: ListPolicies) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {policiesFiltered.map((row, index) => (
+            {activitiesFiltered.map((row, index) => (
               <StyledTableRow
                 key={index}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

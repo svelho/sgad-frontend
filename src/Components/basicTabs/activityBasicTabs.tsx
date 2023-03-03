@@ -3,10 +3,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { green } from "@material-ui/core/colors";
-import CreatePolicy from "../../Pages/Policies/createPolicy";
-import Policies from "../../Pages/Policies/policies";
-import PolicyList from "../../Pages/Policies/policyList";
+import ActivityList from "../../pages/activities/activityList";
+import CreateActivity from "../../pages/activities/createActivity";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -41,7 +39,7 @@ function a11yProps(index: number) {
   };
 }
 
-export default function BasicTabs() {
+export default function ActivityBasicTabs() {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -63,10 +61,10 @@ export default function BasicTabs() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <PolicyList />
+        <ActivityList />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <CreatePolicy />
+        <CreateActivity />
       </TabPanel>
     </Box>
   );

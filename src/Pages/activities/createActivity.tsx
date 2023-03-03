@@ -9,21 +9,19 @@ import {
   SelectChangeEvent,
   Stack,
 } from "@mui/material";
-import "./createPolicy.css";
-import { minWidth } from "@mui/system";
-import { UseAxiosGet, UseAxiosPost } from "../../hooks/axios";
+import "./createActivity.css";
+import { UseAxiosPost } from "../../hooks/axios";
 import Credentials from "../../models/credentials";
 import { useState } from "react";
 import Loading from "../../Components/loading/loading";
 
-export default function CreatePolicy() {
+export default function CreateActivity() {
   const [width, setWidth] = React.useState(window.innerWidth);
   const breakpoint = 1100;
   const [_color, set_color] = React.useState("gray");
   let [title, setTitle] = useState("");
   let [description, setDescription] = useState("");
   let [level, setLevel] = useState(0);
-  let obj: any;
   let [success, setSuccess] = useState(true);
 
   React.useEffect(() => {
@@ -41,7 +39,7 @@ export default function CreatePolicy() {
     set_color("gray");
   };
 
-  const createPolicy = () => {
+  const createActivity = () => {
     setSuccess(false);
     const cred = localStorage.getItem("credentials");
     const credential = JSON.parse(cred ?? "") as Credentials;
@@ -59,7 +57,7 @@ export default function CreatePolicy() {
     };
 
     const returned = UseAxiosPost(
-      `${process.env.REACT_APP_BACKEND}/v1/policy/create`,
+      `${process.env.REACT_APP_BACKEND}/v1/activity/create`,
       payload,
       headers
     ).then((data) => {
@@ -70,7 +68,7 @@ export default function CreatePolicy() {
         setLevel(0);
         alert("Salvo com sucesso!");
       } else {
-        alert("Erro ao tentar cadastrar política");
+        alert("Erro ao tentar cadastrar atividade");
       }
     });
   };
@@ -90,7 +88,7 @@ export default function CreatePolicy() {
           <TextField
             required
             id="standard-basic"
-            label="Título da Política"
+            label="Título da Atividade"
             variant="standard"
             onChange={(event) => setTitle(event.target.value)}
             value={title}
@@ -99,14 +97,14 @@ export default function CreatePolicy() {
             required
             aria-label="minimum height"
             minRows={10}
-            placeholder="Escreva aqui a descrição completa da política ambiental"
+            placeholder="Escreva aqui a descrição completa da atividade de risco"
             style={{ flex: 1, width: width > breakpoint ? 800 : 230 }}
             value={description}
             onChange={(event) => setDescription(event.target.value)}
           />
 
           <InputLabel id="demo-simple-select-label" sx={{ color: _color }}>
-            Nível de Importância
+            Nível de Risco
           </InputLabel>
           <Select
             required
@@ -118,13 +116,13 @@ export default function CreatePolicy() {
             onFocus={changeLabel}
             onBlur={changeLabelBlur}
           >
-            <MenuItem value={25}>Necessário</MenuItem>
-            <MenuItem value={50}>Relevante</MenuItem>
-            <MenuItem value={75}>Muito Relevante</MenuItem>
-            <MenuItem value={100}>Imprescindível</MenuItem>
+            <MenuItem value={50}>Básico</MenuItem>
+            <MenuItem value={100}>Moderado</MenuItem>
+            <MenuItem value={150}>Agressivo</MenuItem>
+            <MenuItem value={200}>Muito Agressivo</MenuItem>
           </Select>
 
-          <Button variant="outlined" onClick={createPolicy}>
+          <Button variant="outlined" onClick={createActivity}>
             Salvar
           </Button>
         </Stack>
