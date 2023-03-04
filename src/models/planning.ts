@@ -12,7 +12,7 @@ class Planning {
   goal3: string | undefined;
   policies: policy[] | undefined;
   stakeholders: Credentials[] | undefined;
-  initialData: Date | undefined;
+  initialDate: Date | undefined;
 }
 
 export default Planning;

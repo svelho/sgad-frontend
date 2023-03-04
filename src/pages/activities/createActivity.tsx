@@ -15,6 +15,7 @@ import { UseAxiosPost } from "../../hooks/axios";
 import Credentials from "../../models/credentials";
 import { useState } from "react";
 import Loading from "../../Components/loading/loading";
+import { RiskClassification } from "../../enum/riskClassification";
 
 export default function CreateActivity() {
   const [width, setWidth] = React.useState(window.innerWidth);
@@ -25,6 +26,8 @@ export default function CreateActivity() {
   let [level, setLevel] = useState(0);
   let [success, setSuccess] = useState(true);
   let [riskField, setRiskField] = useState(false);
+  let [classificationField, setClassificationField] = useState(false);
+  let [classification, setClassification] = useState("");
 
   React.useEffect(() => {
     window.addEventListener("resize", () => setWidth(window.innerWidth));
@@ -33,6 +36,11 @@ export default function CreateActivity() {
   const handleChange = (event: SelectChangeEvent) => {
     setLevel(parseInt(event.target.value));
     setRiskField(false);
+  };
+
+  const handleChangeRiskClassification = (event: SelectChangeEvent) => {
+    setClassification(event.target.value.toString());
+    setClassificationField(false);
   };
 
   const changeLabel = () => {
@@ -48,6 +56,11 @@ export default function CreateActivity() {
       return false;
     } else if (level > 0) setRiskField(false);
 
+    if (classification === "") {
+      setClassificationField(true);
+      return false;
+    } else setClassificationField(false);
+
     setSuccess(false);
     const cred = localStorage.getItem("credentials");
     const credential = JSON.parse(cred ?? "") as Credentials;
@@ -61,6 +74,7 @@ export default function CreateActivity() {
     const payload = {
       title: title,
       description: description,
+      classification: classification,
       level: level,
     };
 
@@ -113,7 +127,31 @@ export default function CreateActivity() {
             value={description}
             onChange={(event) => setDescription(event.target.value)}
           />
-
+          <InputLabel id="demo-simple-select-label" sx={{ color: _color }}>
+            Classificação do Risco
+          </InputLabel>
+          <Select
+            required
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={classification}
+            label="Nível de Importância"
+            onChange={handleChangeRiskClassification}
+            onFocus={changeLabel}
+            onBlur={changeLabelBlur}
+          >
+            <MenuItem value={"fisico"}>{RiskClassification.fisico}</MenuItem>
+            <MenuItem value={"quimico"}>{RiskClassification.quimico}</MenuItem>
+            <MenuItem value={"biologico"}>
+              {RiskClassification.biologico}
+            </MenuItem>
+            <MenuItem value={"acidente"}>
+              {RiskClassification.acidente}
+            </MenuItem>
+          </Select>
+          <div hidden={!classificationField} className="validationError">
+            Por favor selecione a classificação do risco.
+          </div>
           <InputLabel id="demo-simple-select-label" sx={{ color: _color }}>
             Nível de Risco
           </InputLabel>
@@ -136,7 +174,7 @@ export default function CreateActivity() {
             Por favor selecione um nível de risco.
           </div>
 
-          <Button variant="outlined" type="submit">
+          <Button className="buttonSave" variant="outlined" type="submit">
             Salvar
           </Button>
         </Stack>

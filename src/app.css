@@ -16,3 +16,8 @@
 .iconButton {
   color: black !important;
 }
+
+.buttonSave {
+  background-color: #4caf50 !important;
+  margin-bottom: 60px !important;
+}

@@ -37,10 +37,6 @@ export default function CreatePlanning() {
   let [goal1, setGoal1] = useState("");
   let [goal2, setGoal2] = useState("");
   let [goal3, setGoal3] = useState("");
-  let [selectedPolicies, setSelectedPolicies] = useState([] as Policy[]);
-  let [selectedStakeholders, setSelectedStakeholders] = useState(
-    [] as Credentials[]
-  );
   let [success, setSuccess] = useState(true);
   const [dateValue, setDateValue] = useState(new Date());
   let [policiesField, setPoliciesField] = useState(false);
@@ -83,7 +79,16 @@ export default function CreatePlanning() {
     "Content-Type": "application/json",
   };
 
-  const clearFields = () => {};
+  const clearFields = () => {
+    setName("");
+    setActivity({} as Activity);
+    setObjective("");
+    setGoal1("");
+    setGoal2("");
+    setGoal3("");
+    setNumbersPoli([] as number[]);
+    setNumbersStake([] as number[]);
+  };
 
   const handleChangeActivity = (event: SelectChangeEvent) => {
     const value = event.target.value;
@@ -298,7 +303,7 @@ export default function CreatePlanning() {
       goal3: goal3,
       policies: policies,
       stakeholders: stakeholders,
-      initialData: dateValue,
+      initialDate: dateValue,
     };
 
     const cred = localStorage.getItem("credentials");
@@ -430,7 +435,7 @@ export default function CreatePlanning() {
             Selecione a data de Início do Plano
           </InputLabel>
           <DatePicker required onChange={setDateValue} value={dateValue} />
-          <Button variant="outlined" type="submit">
+          <Button className="buttonSave" variant="outlined" type="submit">
             Salvar
           </Button>
         </Stack>

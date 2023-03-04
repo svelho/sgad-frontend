@@ -3,8 +3,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import CreatePolicy from "../../pages/policies/createPolicy";
-import PolicyList from "../../pages/policies/policyList";
+import CreatePlanning from "../../pages/planning/createPlanning";
+import PlanningList from "../../pages/planning/planningList";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -39,7 +39,7 @@ function a11yProps(index: number) {
   };
 }
 
-export default function PolictyBasicTabs() {
+export default function PlanningBasicTabs() {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -61,10 +61,10 @@ export default function PolictyBasicTabs() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <PolicyList />
+        <PlanningList />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <CreatePolicy />
+        <CreatePlanning />
       </TabPanel>
     </Box>
   );

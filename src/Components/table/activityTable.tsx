@@ -14,7 +14,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import React, { useState } from "react";
 import { ListActivities } from "../../models/activity";
 import "./activityTable.css";
-import { UseAxiosDelete, UseAxiosPost } from "../../hooks/axios";
+import { UseAxiosDelete } from "../../hooks/axios";
 import Credentials from "../../models/credentials";
 import Loading from "../loading/loading";
 import { styled } from "@mui/material/styles";

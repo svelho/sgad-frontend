@@ -136,7 +136,7 @@ export default function CreatePolicy() {
           <div hidden={!riskField} className="validationError">
             Por favor selecione um nível de importância.
           </div>
-          <Button variant="outlined" type="submit">
+          <Button className="buttonSave" variant="outlined" type="submit">
             Salvar
           </Button>
         </Stack>

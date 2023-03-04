@@ -122,8 +122,8 @@ export default function ButtonAppBar() {
                   <MenuItem onClick={() => navigation("/atividades")}>
                     Atividades de Risco
                   </MenuItem>
-                  <MenuItem onClick={() => navigation("/metas")}>
-                    Metas Ambientais
+                  <MenuItem onClick={() => navigation("/planning")}>
+                    Planejamento
                   </MenuItem>
                   <MenuItem onClick={() => navigation("/score")}>
                     Score de Risco
@@ -164,9 +164,9 @@ export default function ButtonAppBar() {
                 </IconButton>
                 <IconButton
                   className="iconButton"
-                  onClick={() => navigation("/metas")}
+                  onClick={() => navigation("/planejamento")}
                 >
-                  Metas Ambientais
+                  Planejamento
                 </IconButton>
                 <IconButton
                   className="iconButton"

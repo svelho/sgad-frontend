@@ -2,6 +2,7 @@ class Activity {
   id: string | undefined;
   title: string | undefined;
   description: string | undefined;
+  classification: string | undefined;
   level: number | undefined;
 }
 
