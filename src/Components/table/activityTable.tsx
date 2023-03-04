@@ -47,13 +47,13 @@ export default function BasicTable({ activities }: ListActivities) {
   let [activitiesFiltered, setActivitiesFiltered] = useState(activities);
 
   const levelConvertToDescription = (level: number) => {
-    if (level === 50) {
+    if (level === 80) {
       return "Básico";
-    } else if (level === 100) {
+    } else if (level === 120) {
       return "Moderado";
-    } else if (level === 150) {
+    } else if (level === 230) {
       return "Agressivo";
-    } else if (level === 200) {
+    } else if (level === 300) {
       return "Muito Agressivo";
     }
   };

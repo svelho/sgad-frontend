@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import React, { useState } from "react";
-import { ListPolicies } from "../../models/policy";
+import Policy, { ListPolicies } from "../../models/policy";
 import "./policyTable.css";
 import { UseAxiosDelete, UseAxiosPost } from "../../hooks/axios";
 import Credentials from "../../models/credentials";
@@ -44,6 +44,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function BasicTable({ policies }: ListPolicies) {
   //const [rows, setRows] = React.useState(data);
   let [success, setSuccess] = useState(true);
+
   let [policiesFiltered, setPoliciesFiltered] = useState(policies);
 
   const levelConvertToDescription = (level: number) => {
@@ -91,8 +92,8 @@ export default function BasicTable({ policies }: ListPolicies) {
           <TableHead>
             <TableRow>
               <StyledTableCell>Título</StyledTableCell>
-              <StyledTableCell align="right">Descrição</StyledTableCell>
-              <StyledTableCell align="right">Nivel</StyledTableCell>
+              <StyledTableCell align="left">Descrição</StyledTableCell>
+              <StyledTableCell align="left">Nivel</StyledTableCell>
               <StyledTableCell align="right"></StyledTableCell>
             </TableRow>
           </TableHead>
@@ -105,23 +106,13 @@ export default function BasicTable({ policies }: ListPolicies) {
                 <StyledTableCell component="th" scope="row">
                   {row.title}
                 </StyledTableCell>
-                <StyledTableCell align="right">
+                <StyledTableCell align="left">
                   {row.description}
                 </StyledTableCell>
-                <StyledTableCell align="right">
+                <StyledTableCell align="left">
                   {levelConvertToDescription(row.level ?? 0)}
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  {/* <Button
-                  variant="contained"
-                  color={row.description ? "primary" : "secondary"}
-                  onClick={() => {
-                    handleChangeConnect(row.id ?? "");
-                  }}
-                >
-                  {row.description ? "disconnect" : "connect"}
-                </Button> */}
-
                   <IconButton
                     aria-label="delete"
                     className="iconButton"

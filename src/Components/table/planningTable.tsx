@@ -18,6 +18,7 @@ import { UseAxiosDelete, UseAxiosPost } from "../../hooks/axios";
 import Credentials from "../../models/credentials";
 import Loading from "../loading/loading";
 import { styled } from "@mui/material/styles";
+import Policies from "../../pages/policies/policies";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -45,18 +46,6 @@ export default function BasicTable({ arrayPlanning }: ListPlanning) {
   //const [rows, setRows] = React.useState(data);
   let [success, setSuccess] = useState(true);
   let [planningFiltered, setPlanningFiltered] = useState(arrayPlanning);
-
-  const levelConvertToDescription = (level: number) => {
-    if (level === 25) {
-      return "Necessário";
-    } else if (level === 50) {
-      return "Relevante";
-    } else if (level === 75) {
-      return "Muito Relevante";
-    } else if (level === 100) {
-      return "Imprescindível";
-    }
-  };
 
   const deleteRow = (id: string, index: number) => {
     setSuccess(false);
@@ -91,9 +80,15 @@ export default function BasicTable({ arrayPlanning }: ListPlanning) {
           <TableHead>
             <TableRow>
               <StyledTableCell>Nome</StyledTableCell>
-              <StyledTableCell align="right">Descrição</StyledTableCell>
-              <StyledTableCell align="right">Nivel</StyledTableCell>
-              <StyledTableCell align="right"></StyledTableCell>
+              <StyledTableCell align="left">Atividade</StyledTableCell>
+              <StyledTableCell align="left">Objetivo</StyledTableCell>
+              <StyledTableCell align="left">Meta1</StyledTableCell>
+              <StyledTableCell align="left">Meta2</StyledTableCell>
+              <StyledTableCell align="left">Meta3</StyledTableCell>
+              <StyledTableCell align="left">Políticas</StyledTableCell>
+              <StyledTableCell align="left">Stakeholders</StyledTableCell>
+              <StyledTableCell align="left">Data de Início</StyledTableCell>
+              <StyledTableCell align="left">Excluir</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -102,13 +97,29 @@ export default function BasicTable({ arrayPlanning }: ListPlanning) {
                 key={index}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <StyledTableCell component="th" scope="row">
-                  {row.name}
+                <StyledTableCell>{row.name}</StyledTableCell>
+                <StyledTableCell align="left">
+                  {row.activity?.title}
                 </StyledTableCell>
-                <StyledTableCell align="right">{row.name}</StyledTableCell>
-                <StyledTableCell align="right">
-                  {/* {levelConvertToDescription(row.level ?? 0)} */}
+                <StyledTableCell align="left">{row.objective}</StyledTableCell>
+                <StyledTableCell align="left">{row.goal1}</StyledTableCell>
+                <StyledTableCell align="left">{row.goal2}</StyledTableCell>
+                <StyledTableCell align="left">{row.goal3}</StyledTableCell>
+                <StyledTableCell align="left">
+                  {row.policies
+                    ?.map((x) => {
+                      return x.title;
+                    })
+                    .join(", ")}
                 </StyledTableCell>
+                <StyledTableCell align="left">
+                  {row.stakeholders
+                    ?.map((x) => {
+                      return x.name;
+                    })
+                    .join(", ")}
+                </StyledTableCell>
+                <StyledTableCell align="right">Data de Início</StyledTableCell>
                 <StyledTableCell align="right">
                   <IconButton
                     aria-label="delete"

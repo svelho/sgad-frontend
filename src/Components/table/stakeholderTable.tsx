@@ -55,9 +55,9 @@ export default function StakeholderTable({ users }: ListCredentials) {
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Nome</StyledTableCell>
-            <StyledTableCell>E-Mail</StyledTableCell>
-            <StyledTableCell>Telefone</StyledTableCell>
+            <StyledTableCell align="left">Nome</StyledTableCell>
+            <StyledTableCell align="left">E-Mail</StyledTableCell>
+            <StyledTableCell align="left">Telefone</StyledTableCell>
             <StyledTableCell>Area</StyledTableCell>
             <StyledTableCell>Cargo</StyledTableCell>
           </TableRow>
