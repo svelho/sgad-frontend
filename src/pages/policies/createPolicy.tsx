@@ -70,7 +70,7 @@ export default function CreatePolicy() {
       payload,
       headers
     ).then((data) => {
-      setSuccess(data);
+      setSuccess(true);
       if (data) {
         setTitle("");
         setDescription("");

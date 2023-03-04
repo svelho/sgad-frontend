@@ -26,6 +26,7 @@ import { useEffect, useState } from "react";
 import Loading from "../../Components/loading/loading";
 import Activity from "../../models/activity";
 import Policy from "../../models/policy";
+import Planning from "../../models/planning";
 
 export default function CreatePlanning() {
   //#region properties
@@ -287,8 +288,17 @@ export default function CreatePlanning() {
       return false;
     }
 
-    const payload = {
+    const payload: Planning = {
+      id: undefined,
       name: name,
+      activity: activity,
+      objective: objective,
+      goal1: goal1,
+      goal2: goal2,
+      goal3: goal3,
+      policies: policies,
+      stakeholders: stakeholders,
+      initialData: dateValue,
     };
 
     const cred = localStorage.getItem("credentials");
@@ -301,16 +311,16 @@ export default function CreatePlanning() {
     };
 
     const returned = UseAxiosPost(
-      `${process.env.REACT_APP_BACKEND}/v1/policy/create`,
+      `${process.env.REACT_APP_BACKEND}/v1/planning/create`,
       payload,
       headers
     ).then((data) => {
-      setSuccess(data);
+      setSuccess(true);
       if (data) {
         clearFields();
         alert("Salvo com sucesso!");
       } else {
-        alert("Erro ao tentar cadastrar política");
+        alert("Erro ao tentar cadastrar planning");
       }
     });
   };

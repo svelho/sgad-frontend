@@ -1,4 +1,5 @@
 import Activity from "./activity";
+import Credentials from "./credentials";
 import policy from "./policy";
 
 class Planning {
@@ -10,7 +11,7 @@ class Planning {
   goal2: string | undefined;
   goal3: string | undefined;
   policies: policy[] | undefined;
-  stakeholders: Credential[] | undefined;
+  stakeholders: Credentials[] | undefined;
   initialData: Date | undefined;
 }
 
