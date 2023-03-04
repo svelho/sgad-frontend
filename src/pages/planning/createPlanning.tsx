@@ -88,6 +88,7 @@ export default function CreatePlanning() {
     setGoal3("");
     setNumbersPoli([] as number[]);
     setNumbersStake([] as number[]);
+    setDateValue(new Date());
   };
 
   const handleChangeActivity = (event: SelectChangeEvent) => {

@@ -18,5 +18,5 @@ class Planning {
 export default Planning;
 
 export interface ListPlanning {
-  activities: Planning[];
+  arrayPlanning: Planning[];
 }
