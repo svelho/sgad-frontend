@@ -34,15 +34,13 @@ function GoogleSync() {
       cred.uid = user.uid;
       await localStorage.setItem("credentials", JSON.stringify(cred));
 
-      const headers = GetHeader();
+      const headers = GetHeader(user.accessToken);
 
       //verify user
       const userReturned = await UseAxiosGetWithParameter(
         `${process.env.REACT_APP_BACKEND}/v1/user/${user.uid}`,
         headers
       );
-
-      console.log(userReturned);
 
       if ((userReturned as boolean) === false) {
         navigate("/");
@@ -53,8 +51,11 @@ function GoogleSync() {
 
       userReturned as Credentials;
       if (userReturned && userReturned.name) {
+        cred.onboarding = true;
+        await localStorage.setItem("credentials", JSON.stringify(cred));
         navigate("/home");
       } else {
+        await localStorage.setItem("credentials", JSON.stringify(cred));
         navigate("/onboarding");
       }
     });

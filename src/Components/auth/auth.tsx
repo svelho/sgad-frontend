@@ -9,7 +9,7 @@ import { useState } from "react";
 import { auth } from "../../services/firebase";
 import Credentials from "../../models/credentials";
 import { useNavigate } from "react-router-dom";
-import { UseAxiosPost } from "../../hooks/axios";
+import { UseAxiosGetWithParameter, UseAxiosPost } from "../../hooks/axios";
 import GetHeader from "../../shared/localStorage";
 import {
   InputLabel,
@@ -64,7 +64,7 @@ function Auth() {
         cred.photoUrl = user.photoURL ?? "";
         cred.uid = user.uid;
 
-        const headers = GetHeader();
+        const headers = GetHeader(cred.token);
 
         const payload = {
           name: name,
@@ -83,7 +83,6 @@ function Auth() {
         ).then(async (data) => {
           cred.onboarding = true;
           await localStorage.setItem("credentials", JSON.stringify(cred));
-
           cleanFields();
           navigate("/home");
         });
@@ -100,7 +99,7 @@ function Auth() {
     setUserNotFound(false);
     setWrongPassword(false);
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         // Signed in
         const user = userCredential.user as any;
         const cred = new Credentials();
@@ -110,6 +109,27 @@ function Auth() {
         cred.expirationTime = user.stsTokenManager.expirationTime;
         cred.photoUrl = user.photoURL ?? "";
         cred.uid = user.uid;
+        const headers = GetHeader(cred.token);
+        //verify user
+        const userReturned = await UseAxiosGetWithParameter(
+          `${process.env.REACT_APP_BACKEND}/v1/user/${user.uid}`,
+          headers
+        );
+        if ((userReturned as boolean) === false) {
+          navigate("/");
+          console.log("Erro ao consultar a base de clientes");
+          alert("Erro ao consultar a base de clientes");
+          return;
+        }
+        userReturned as Credentials;
+        if (userReturned && userReturned.name) {
+          cred.onboarding = true;
+          await localStorage.setItem("credentials", JSON.stringify(cred));
+          navigate("/home");
+        } else {
+          await localStorage.setItem("credentials", JSON.stringify(cred));
+          navigate("/onboarding");
+        }
       })
       .catch((error) => {
         const errorCode = error.code;

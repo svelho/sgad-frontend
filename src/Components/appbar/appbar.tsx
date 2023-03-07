@@ -122,7 +122,7 @@ export default function ButtonAppBar() {
                   <MenuItem onClick={() => navigation("/atividades")}>
                     Atividades de Risco
                   </MenuItem>
-                  <MenuItem onClick={() => navigation("/planning")}>
+                  <MenuItem onClick={() => navigation("/planejamento")}>
                     Planejamento
                   </MenuItem>
                   <MenuItem onClick={() => navigation("/score")}>

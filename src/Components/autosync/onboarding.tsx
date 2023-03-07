@@ -12,10 +12,10 @@ function Onboarding() {
   let [position, setPosition] = useState("");
   let [area, setArea] = useState("");
 
-  function createNewUser() {
-    const headers = GetHeader();
-    const cred = localStorage.getItem("credentials");
+  async function createNewUser() {
+    const cred = await localStorage.getItem("credentials");
     const credential = JSON.parse(cred ?? "") as Credentials;
+    const headers = GetHeader(credential.token);
 
     if (credential.onboarding) navigate("/home");
 
