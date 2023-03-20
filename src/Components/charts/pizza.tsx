@@ -43,7 +43,8 @@ function Pizza({ arrayPlanning }: ListPlanning) {
   };
 
   useEffect(() => {
-    setPlanning(arrayPlanning[1]);
+    if (arrayPlanning.length > 1) setPlanning(arrayPlanning[1]);
+    else setPlanning(arrayPlanning[0]);
     calcRiskScore();
   }, []);
 

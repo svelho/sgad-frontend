@@ -19,6 +19,7 @@ import Credentials from "../../models/credentials";
 import Loading from "../loading/loading";
 import { styled } from "@mui/material/styles";
 import Policies from "../../pages/policies/policies";
+import FormatDate from "../../shared/util";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -119,7 +120,9 @@ export default function BasicTable({ arrayPlanning }: ListPlanning) {
                     })
                     .join(", ")}
                 </StyledTableCell>
-                <StyledTableCell align="right">Data de Início</StyledTableCell>
+                <StyledTableCell align="right">
+                  {FormatDate(row.initialDate?.toString() ?? "")}
+                </StyledTableCell>
                 <StyledTableCell align="right">
                   <IconButton
                     aria-label="delete"
